@@ -93,7 +93,7 @@ alias bib=breakfast
 function eat()
 {
     if [ "$OUT" ] ; then
-        ZIPPATH=`ls -tr "$OUT"/ExtendedUI-*.zip | tail -1`
+        ZIPPATH=`ls -tr "$OUT"/KangUI-*.zip | tail -1`
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
             return 1
@@ -107,7 +107,7 @@ function eat()
             done
             echo "Device Found.."
         fi
-        if (adb shell getprop org.extendedui.device | grep -q "$CUSTOM_BUILD"); then
+        if (adb shell getprop org.kangui.device | grep -q "$CUSTOM_BUILD"); then
             # if adbd isn't root we can't write to /cache/recovery/
             adb root
             sleep 1
@@ -307,7 +307,7 @@ function githubremote()
 
     local PROJECT=$(echo $REMOTE | sed -e "s#platform/#android/#g; s#/#_#g")
 
-    git remote add github https://github.com/Extended-UI/$PROJECT
+    git remote add github https://github.com/KangKangOS/$PROJECT
     echo "Remote 'github' created"
 }
 
@@ -341,7 +341,7 @@ function installboot()
     sleep 1
     adb wait-for-online shell mount /system 2>&1 > /dev/null
     adb wait-for-online remount
-    if (adb shell getprop org.extendedui.device | grep -q "$CUSTOM_BUILD");
+    if (adb shell getprop org.kangui.device | grep -q "$CUSTOM_BUILD");
     then
         adb push $OUT/boot.img /cache/
         if [ -e "$OUT/system/lib/modules/*" ];
@@ -743,7 +743,7 @@ function dopush()
         echo "Device Found."
     fi
 
-    if (adb shell getprop org.extendedui.device | grep -q "$CUSTOM_BUILD") || [ "$FORCE_PUSH" = "true" ];
+    if (adb shell getprop org.kangui.device | grep -q "$CUSTOM_BUILD") || [ "$FORCE_PUSH" = "true" ];
     then
     # retrieve IP and PORT info if we're using a TCP connection
     TCPIPPORT=$(adb devices \
